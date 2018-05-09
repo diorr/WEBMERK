@@ -1,0 +1,59 @@
+section{
+	height: 600px;
+}
+
+h1{
+	font: 60px eras, sans-serif;
+	text-align: center;
+	font-weight: bold;
+}
+
+/* Create three equal columns that floats next to each other */
+.column1 {
+    float: left;
+    width: 20%;
+    padding: 10px;
+	height: 350px; /* Should be removed. Only for demonstration */
+	margin-left: 5%;
+	border: 1px solid black;
+}
+.column2 {
+    float: left;
+    width: 40%;
+    padding: 10px;
+	height: 350px; /* Should be removed. Only for demonstration */
+	margin-left: 5%;
+	border: 1px solid black;
+}
+.column3 {
+    float: left;
+    max-width: 130px;
+    padding: 10px;
+	height: 350px; /* Should be removed. Only for demonstration */
+	margin-left: 1%;
+
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+p{
+	font: 18px eras, sans-serif;
+	font-weight: bold;
+}
+
+.centerText{
+	text-align: center;
+}
+
+.txtArea{
+	width: 100%;
+}
+
+.column3 img{
+	max-height: 120px;
+}

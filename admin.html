@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Homepage</title>
+	<link rel="stylesheet" type="text/css" href="baseStylesheet.css">
+	<link rel="stylesheet" type="text/css" href="adminStyle.css">
+	<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+		apiKey: "AIzaSyBsB-buu8KhZE8IBVWCXk-u2q7F_mTw7og",
+		authDomain: "webmercenary-19c7a.firebaseapp.com",
+		databaseURL: "https://webmercenary-19c7a.firebaseio.com",
+		projectId: "webmercenary-19c7a",
+		storageBucket: "",
+		messagingSenderId: "47775934888"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+	<script>
+		function authenticate(){
+
+			var email = localStorage.getItem("email");
+			var password = localStorage.getItem("password");
+			console.log("Logged into: "+email);
+
+			if(email != "admin@test.com"){
+				window.location.href = "home.html";
+			}
+		}
+
+		function addItem(){
+			var itemName = document.getElementById("name").value;
+			var itemPrice = document.getElementById("price").value;
+			var itemDesc = document.getElementById("description").value;
+			var picturePath = document.getElementById("pic").value;
+			var filename = picturePath.replace(/^.*[\\\/]/, '');
+			
+			if(itemName != '' && itemPrice != '' && itemDesc !=''){
+				var itemObj = {
+					itemName: itemName,
+					itemPrice: itemPrice,
+					itemDesc: itemDesc,
+					itemImage: filename
+				}
+
+				var itemId = firebase.database().ref('Store').push().key;
+
+				firebase.database().ref('Store').child(itemId).set(itemObj).then(
+				function(error){
+					if(error){
+						console.error(error);
+					} else{
+						alert("Item Added");
+					}
+				});
+
+				document.getElementById("name").value = "";
+				document.getElementById("price").value = "";
+				document.getElementById("description").value = "";
+				document.getElementById("pic").value = "";
+			} else {
+				alert("Please fill out all the fields");
+			}
+		}
+
+		function searchItem(){
+			var itemName = document.getElementById("name").value;
+			var ref = firebase.database().ref('Store');
+			var query = ref.equalTo(itemName);
+			ref.orderByChild("itemName").equalTo(itemName).once("child_added", function(snapshot) {
+				document.getElementById("price").value = snapshot.val().itemPrice;
+				document.getElementById("description").value = snapshot.val().itemDesc;
+				
+			});
+		}
+
+		function deleteItem(){
+			var itemName = document.getElementById("name").value;
+			var ref = firebase.database().ref('Store');
+			ref.orderByChild("itemName").equalTo(itemName).once("value")
+			.then(function(snapshot) {
+				snapshot.forEach(function(childSnapshot) {
+					ref.child(childSnapshot.key).remove();
+				});
+				document.getElementById("name").value = "";
+				document.getElementById("price").value = "";
+				document.getElementById("description").value = "";
+			});
+		}
+		
+		function updateItem(){
+			var itemName = document.getElementById("name").value;
+			var ref = firebase.database().ref('Store');
+			ref.orderByChild("itemName").equalTo(itemName).once("value")
+			.then(function(snapshot) {
+				snapshot.forEach(function(childSnapshot) {
+					ref.child(childSnapshot.key).remove();
+				});
+				addItem();
+			});
+		}
+	</script>
+</head>
+<body onload="authenticate();">
+	<nav>
+		<img src="images/WebMercLogo.png" alt="logo">
+		<div id="navText">
+			<img src="images/Logo.jpg" alt="h1">
+		</div>
+		<div id="dropdown">
+			<button>=</button>
+			<div id="dropdown-content">
+				<a href="home.html">Home</a>
+				<a href="store.html">Store</a>
+				<a href="login.html">Login</a>
+				<a href="location.html">Location</a>
+				<a href="developerPage.html">Developers</a>
+				<a href="contact.html">Contact</a>
+				<a href="FAQ.html">FAQ</a>
+			</div>
+		</div>
+	</nav>
+	<section id="productForm">
+		<div id="wrap">
+			Name: <br>
+			<input type="text" id="name"> <br>
+			Price: <br>
+			<input type="text" id="price"> <br>
+			Description: <br>
+			<input type="text" id="description"> <br>
+			
+			<input type="file" id="pic" name="pic" accept=".jpg, .png, .jpeg"/> <br>
+			<input type="button" value="Add" onclick="addItem();">
+			<input type="button" value="Update" onclick="updateItem();">
+			<input type="button" value="Delete" onclick="deleteItem();">
+			<input type="button" value="Search" onclick="searchItem();">
+		</div>
+	</section>
+	<footer>
+		<ul>
+			<li><a href="home.html">Home</a></li>
+			<li><a href="store.html">Store</a></li>
+			<li><a href="login.html">Login</a></li>
+			<li><a href="location.html">Location</a></li>
+			<li><a href="developerPage.html">Developer Pages</a></li>
+			<li><a href="contact.html">Contact</a></li>
+			<li><a href="FAQ.html">FAQ</a></li>
+		</ul>
+	</footer>
+</body>
+</html>

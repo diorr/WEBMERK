@@ -1,0 +1,31 @@
+section h1{
+	font-size:72px;
+	margin-left:1%;
+	margin-bottom:20px;
+	margin-top: 0px;
+	float: left;
+	width: 90%;
+}
+
+section h2{
+	border-bottom: 1px solid black;
+	margin-bottom: 2px;
+	float: left;
+	width: 80%;
+	font-size: 30px;
+	margin-left: 8%;
+
+}
+
+section p{
+	float: left;
+	width: 80%;
+	margin-left: 8%;
+}
+
+#sidePic img{
+	width: 8%;
+	float: right;
+	margin-left:1%;
+	margin-right: 1%;
+}

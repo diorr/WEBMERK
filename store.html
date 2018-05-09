@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Store</title>
+	<link rel="stylesheet" type="text/css" href="baseStylesheet.css">
+	<link rel="stylesheet" type="text/css" href="storeStylesheet.css">
+	<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+		apiKey: "AIzaSyBsB-buu8KhZE8IBVWCXk-u2q7F_mTw7og",
+		authDomain: "webmercenary-19c7a.firebaseapp.com",
+		databaseURL: "https://webmercenary-19c7a.firebaseio.com",
+		projectId: "webmercenary-19c7a",
+		storageBucket: "",
+		messagingSenderId: "47775934888"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+	<script>
+		var count = 0;
+		var idCount = 0;
+		function login(){
+			var email = "general@test.com";
+			var password = "test123";
+			
+			firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error){
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				if(errorCode === "auth/wrong-password"){
+					alert("wrong password");
+				} else {
+					alert(errorMessage);
+				}
+				console.log(error);
+			}).then(function(userObject){
+				console.log('Successfully logged in (Login Function)');
+				load();
+			});
+		}
+		
+		function addToCart(ref){
+			var name = document.getElementById('lbl'+ref.id).innerHTML;
+			var price = ref.innerHTML;
+			var desc = document.getElementById('desc'+ref.id).innerHTML;
+			
+			var itemObj = {
+				itemName: name,
+				itemPrice: price,
+				itemDesc: desc
+			}
+			
+			var itemId = firebase.database().ref('Cart').push().key;
+			firebase.database().ref('Cart').child(itemId).set(itemObj).then(
+			function(error){
+					if(error){
+						console.error(error);
+					} else{
+						alert("Item Added To Cart");
+					}
+			});
+		}
+		
+		function load(){
+			var storeRef = firebase.database().ref('Store');
+			storeRef.on('value',function(snapshot){
+				var table = "<tr>";
+				snapshot.forEach(function(childSnapshot){
+					childData = childSnapshot.val();
+					table += "<td><img src='images/"+childData.itemImage+"'/><div class='btnDiv'><button type='button' class='purchaseBtn' id='"+idCount+"' onclick='addToCart(this);'>"+childData.itemPrice+"</button></div><div class='textDiv'><label class='name' id='lbl"+idCount+"'>"+childData.itemName+"</label><br><label id='desc"+idCount+"' class='desc'>"+childData.itemDesc+"</label></div></td>";
+					idCount++;
+					if (count < 3){
+						count++;
+					} else{
+						count = 0;
+						table += "</tr><tr>";
+					}
+				});
+				if(count !=0){
+					table+="</tr>";
+				}
+				console.log("Adding items to table (Load function)...")
+				document.getElementById("storeTable").innerHTML = table;
+			});
+		}
+	</script>
+</head>
+<body onload="login();">
+	<nav>
+		<img src="images/WebMercLogo.png" alt="logo">
+		<div id="navText">
+			<img src="images/Logo.jpg" alt="h1">
+		</div>
+		<div id="dropdown">
+			<button>=</button>
+			<div id="dropdown-content">
+				<a href="home.html">Home</a>
+				<a href="store.html">Store</a>
+				<a href="login.html">Login</a>
+				<a href="location.html">Location</a>
+				<a href="developerPage.html">Developers</a>
+				<a href="contact.html">Contact</a>
+				<a href="FAQ.html">FAQ</a>
+			</div>
+		</div>
+	</nav>
+
+	<h1 id="storeHeader">Store</h1>
+
+	<section>
+		<table id="storeTable" align="center">
+ 			
+		</table>
+		<a id="chkBtn" href="cart.html">Checkout</a>
+	</section>
+
+	<footer>
+		<ul>
+			<li><a href="home.html">Home</a></li>
+			<li><a href="store.html">Store</a></li>
+			<li><a href="login.html">Login</a></li>
+			<li><a href="location.html">Location</a></li>
+			<li><a href="developerPage.html">Developer Pages</a></li>
+			<li><a href="contact.html">Contact</a></li>
+			<li><a href="FAQ.html">FAQ</a></li>
+		</ul>
+	</footer>
+</body>
+</html>

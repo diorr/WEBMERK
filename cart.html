@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Homepage</title>
+	<link rel="stylesheet" type="text/css" href="baseStylesheet.css">
+	<link rel="stylesheet" type="text/css" href="cartStyleSheet.css">
+	<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+		apiKey: "AIzaSyBsB-buu8KhZE8IBVWCXk-u2q7F_mTw7og",
+		authDomain: "webmercenary-19c7a.firebaseapp.com",
+		databaseURL: "https://webmercenary-19c7a.firebaseio.com",
+		projectId: "webmercenary-19c7a",
+		storageBucket: "",
+		messagingSenderId: "47775934888"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+	<script>
+		var count = 0;
+		function login(){
+			var email = "general@test.com";
+			var password = "test123";
+			
+			firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error){
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				if(errorCode === "auth/wrong-password"){
+					alert("wrong password");
+				} else {
+					alert(errorMessage);
+				}
+				console.log(error);
+			}).then(function(userObject){
+				console.log('Successfully logged in (Login Function)');
+				load();
+			});
+		}
+		
+		function load(){
+			count = 0;
+			var storeRef = firebase.database().ref('Cart');
+			storeRef.on('value',function(snapshot){
+				var table = "<tr><th>Id</th><th>Name</th><th>Description</th><th>Price</th><th>Remove from Cart?</th></tr><tr id='0'>";
+				snapshot.forEach(function(childSnapshot){
+					count++;
+					childData = childSnapshot.val();
+					table += "<td>"+count+"</td><td id='name"+count+"'>"+childData.itemName+"</td><td>"+childData.itemDesc+"</td><td id='price"+count+"'>"+childData.itemPrice+"</td><td><button onclick='remove("+count+")'>Remove</button></td></tr><tr id='"+count+"'>";
+
+				});
+				table+="</tr>";
+				console.log("Adding items to table (Load function)...")
+				document.getElementById("cartTable").innerHTML = table;
+			});
+		}
+		
+		function checkout(){
+			var total = 0;
+			count++;
+			for(var i = 1; i<count; ++i){
+				var id = "price"+i;
+				var price = document.getElementById(id).innerHTML;
+				price = price * 1;
+				total += price;
+				console.log(total);
+			}
+			
+			for(var i = 1; i<count; ++i){
+				remove(i);
+			}
+			
+			alert("Checkout Complete! Your total is: $"+total);
+			//window.location.href = "home.html";
+		}
+		
+		function remove(id){
+			var nameId = "name"+id;
+			var itemName = document.getElementById(nameId).innerHTML;
+			console.log("remove: "+itemName);
+			var ref = firebase.database().ref('Cart');
+			ref.orderByChild("itemName").equalTo(itemName).once("value")
+			.then(function(snapshot) {
+				snapshot.forEach(function(childSnapshot) {
+					ref.child(childSnapshot.key).remove();
+				});
+				load();
+			});
+			/*
+			id = id-1;
+			document.getElementById(id).innerHTML = "";
+			*/
+		}
+	</script>
+</head>
+<body onload="login()">
+	<nav>
+		<img src="images/WebMercLogo.png" alt="logo">
+		<div id="navText">
+			<img src="images/Logo.jpg" alt="h1">
+		</div>
+		<div id="dropdown">
+			<button>=</button>
+			<div id="dropdown-content">
+				<a href="home.html">Home</a>
+				<a href="store.html">Store</a>
+				<a href="login.html">Login</a>
+				<a href="location.html">Location</a>
+				<a href="developerPage.html">Developers</a>
+				<a href="contact.html">Contact</a>
+				<a href="FAQ.html">FAQ</a>
+			</div>
+		</div>
+	</nav>
+	<section>
+		<table id="cartTable" align="center">
+			
+		</table>
+		<center> 
+			<button id="btnCheckout" onclick="checkout();">Checkout Cart</button>
+		</center>
+	</section>
+	<footer>
+		<ul>
+			<li><a href="home.html">Home</a></li>
+			<li><a href="store.html">Store</a></li>
+			<li><a href="login.html">Login</a></li>
+			<li><a href="location.html">Location</a></li>
+			<li><a href="developerPage.html">Developer Pages</a></li>
+			<li><a href="contact.html">Contact</a></li>
+			<li><a href="FAQ.html">FAQ</a></li>
+		</ul>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,42 @@
+h1{
+    font: 30px eras, sans-serif;
+    text-align: center;
+    font-weight: none;
+    padding-top: 100px;
+}
+
+p{
+    font: 30px eras, sans-serif;
+    text-align: center;
+}
+
+input {
+    width: 250px;
+}
+
+#button{
+	margin-left: 45%;
+
+}
+
+@media screen and (max-width: 1100px){
+	section h1{
+		font-size: 25px;
+	}
+	section p {
+		font-size:16px;
+	}
+	#button{
+		margin-left:39%;
+	}
+}
+
+@media screen and (max-width: 900px){
+	section h1{
+		font-size: 20px;
+	}
+	section p{
+		font-size: 12px;
+	}
+	#button{margin-left: 35%;}
+}

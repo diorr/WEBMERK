@@ -1,0 +1,117 @@
+nav, section, footer {
+	display:block;
+}
+
+nav {
+	width: 100%;
+	border-bottom: 1px solid black;
+	height: 70px;
+}
+
+nav img{
+	padding-left: 0.1%;
+	padding-top: 0.1%;
+	max-height: 61px;
+	float: left;
+
+}
+
+#navText img{
+	right: 10%;
+	max-height: 50px;
+	margin-left: 34%;
+	padding-top: 10px;
+}
+
+section {
+	height:1000px;
+}
+
+footer {
+	position: fixed;
+	width: 100%;
+	background-color: grey;
+	bottom: 0px;
+	height: 30px;
+	text-align: center;
+	padding-bottom:1%;
+}
+
+footer ul {
+	list-style: none;
+	margin-left: 14%;
+}
+
+footer li {
+	float: left;
+	margin-right:9%;
+}
+
+footer a {
+	text-decoration: none;
+	text-align: center;
+	font-family: eras, sans-serif;
+	color: white;
+}
+
+body {
+	width: 100%;
+	margin: 0;
+}
+
+#dropdown {
+	position: relative;
+	display: inline-block;
+	float:right;
+	margin-right: 8%;
+	padding-top: 13px;
+}
+
+#dropdown-content {
+	display:none;
+	position:absolute;
+	min-width: 100px;	
+	background-color: white;	
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+#dropdown-content a {
+	display:block;
+	text-decoration: none;
+	padding-left: 1%;	
+	color: black;
+	font-family: eras, sans-serif;
+}
+
+#dropdown:hover #dropdown-content {
+	display:block;
+}
+
+nav button {
+	border:none;
+	background-color: white;
+	font-size: 42px;
+}
+
+@media screen and (max-width: 1100px){
+	nav {
+		
+	}
+	
+	#navText img{
+
+		margin-left: 30%;
+	}
+}
+
+@media screen and (max-width: 900px){
+	nav {
+		
+	}
+	
+	#navText img{
+		padding-top:15px;
+		max-height: 40px;
+		margin-left: 20%;
+	}
+}

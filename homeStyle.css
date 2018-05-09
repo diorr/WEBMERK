@@ -1,0 +1,41 @@
+section h1{
+	float: left;
+	font-size: 72px;
+	margin-top:10px;
+	margin-left:10px;
+	margin-bottom:10px;
+}
+
+section p{
+	float:left;
+	margin-top: 80px;
+	padding: 1%;
+	width: 65%;
+	font-size:20px;
+	overflow:hidden;
+}
+
+section{
+	height: 500px;
+}
+
+@media screen and (max-width: 1100px){
+	section h1{
+		font-size: 50px;
+	}
+	
+	section p {
+		font-size:16px;
+	}
+}
+
+@media screen and (max-width: 900px){
+	section h1{
+		font-size: 30px;
+		margin-bottom:2px;
+	}
+	section p{
+		margin-top:50px;
+		font-size: 14px;
+	}
+}

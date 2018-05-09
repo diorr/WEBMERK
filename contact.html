@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Contact</title>
+		<link rel="stylesheet" type="text/css" href="baseStylesheet.css">
+		<link rel="stylesheet" type="text/css" href="contactStylesheet.css">
+</head>
+<body>
+	<nav>
+		<img src="images/WebMercLogo.png" alt="logo">
+		<div id="navText">
+			<img src="images/Logo.jpg" alt="h1">
+		</div>
+		<div id="dropdown">
+			<button>=</button>
+			<div id="dropdown-content">
+				<a href="home.html">Home</a>
+				<a href="store.html">Store</a>
+				<a href="login.html">Login</a>
+				<a href="location.html">Location</a>
+				<a href="developerPage.html">Developers</a>
+				<a href="contact.html">Contact</a>
+				<a href="FAQ.html">FAQ</a>
+			</div>
+		</div>
+	</nav>
+	<section>
+		<h1>Contact Us</h1>
+
+		<div class="row">
+		  <div class="column1">
+			  <p>P: 519.675.1294</p>
+			  <p>E: webmercteam@gmail.com</p>
+			  <p>@Facebook</p>
+			  <p>@Twitter</p>
+			  <p class="centerText">126 YORK STREET</p>
+			  <p class="centerText">LONDON</p>
+			  <p class="centerText">ON</p>
+		  </div>
+		  <div class="column2">
+			<form id="gform" method="POST" data-email="example@email.net"
+			action="https://script.google.com/macros/s/AKfycbzpvfkKDXPCqZq27mEVYJwzwnSr2-cJlhBnR-uH0-GFsH0HJERf/exec">
+
+			  <fieldset >
+				<label for="name">Name: </label>
+				<input id="name" name="name" placeholder="Your Name" />
+			  </fieldset>
+
+			  <fieldset >
+				<label for="phone">Phone Number: </label>
+				<input id="phone" name="phone" placeholder="##########" />
+			  </fieldset>
+
+		  		<fieldset>
+				<label for="email">Email Address:</label>
+				<input id="email" name="email" type="email" value=""
+				required placeholder="your.name@email.com"/>
+				<span id="email-invalid" style="display:none">
+				  Must be a valid email address</span>
+			  </fieldset>
+
+			  <fieldset >
+				<label for="message">Message: </label>
+				<textarea id="message" name="message" rows="10"
+				placeholder="Place your message here..."></textarea>
+			  </fieldset>
+
+			  <button>&nbsp;Send</button>
+			</form>
+		  </div>
+
+		  <div class="column3">
+				<img src="images/facebookIcon.ico" alt="Facebook"/>
+				<img src="images/Twitter.png" alt="Twitter"/>
+				<img src="images/instagram.jpg" alt="Instagram"/>
+		  </div>
+		</div>
+	</section>
+
+	<footer>
+		<ul>
+			<li><a href="home.html">Home</a></li>
+			<li><a href="store.html">Store</a></li>
+			<li><a href="login.html">Login</a></li>
+			<li><a href="location.html">Location</a></li>
+			<li><a href="developerPage.html">Developer Pages</a></li>
+			<li><a href="contact.html">Contact</a></li>
+			<li><a href="FAQ.html">FAQ</a></li>
+		</ul>
+	</footer>
+</body>
+</html>

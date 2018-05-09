@@ -1,0 +1,44 @@
+/*<section id="productForm">		
+	Name: <br>
+		<input type="text" id="name"> <br>
+		Price: <br>
+		<input type="text" id="price"> <br>
+		Description: <br>
+		<input type="text" id="description"> <br>
+		<input type="button" value="Add" onclick="addItem();">
+		<input type="button" value="Update">
+		<input type="button" value="Delete">
+		<input type="button" value="Search">
+	</section>*/
+section {
+
+	height: 300px;
+}
+
+#productForm {
+	margin:15%;
+}
+
+#wrap{
+	border:1.5px black solid;
+	border-radius: 5px;
+	padding: 5px;
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+input {
+	padding: 5px;
+	margin: 5px;
+	border:1.5px black solid;
+	border-radius: 5px;	
+}
+
+input[type=button] {
+	background-color: #e5d7dd;
+	padding: 5px;
+}
+
+input[type=text] {
+	padding-left: 4px;
+}
